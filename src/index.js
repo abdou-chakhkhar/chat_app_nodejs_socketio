@@ -42,6 +42,10 @@ io.on("connection", (socket) => {
         "message",
         generateMessage("Admin", `${user.username} has joined!`)
       );
+    io.to(user.room).emit("roomData", {
+      room: user.room,
+      users: getUsersInRoom(user.room),
+    });
 
     callback();
   });
@@ -60,7 +64,7 @@ io.on("connection", (socket) => {
 
   socket.on("sendLocation", (coords, callback) => {
     const user = getUser(socket.id);
-    io.emit(
+    io.to(user.room).emit(
       "locationMessage",
       generateLocationMessage(
         user.username,
@@ -78,6 +82,10 @@ io.on("connection", (socket) => {
         "message",
         generateMessage("Admin", `${user.username} has left!`)
       );
+      io.to(user.room).emit("roomData", {
+        room: user.room,
+        users: getUsersInRoom(user.room),
+      });
     }
   });
 });
