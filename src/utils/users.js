@@ -1,7 +1,5 @@
 const users = [];
 
-// adduser, removeUser, getUser, getUserINRoom
-
 const addUser = ({ id, username, room }) => {
   // Clean the data
   username = username.trim().toLowerCase();
@@ -36,31 +34,22 @@ const removeUser = (id) => {
   const index = users.findIndex((user) => user.id === id);
 
   if (index !== -1) {
-    return users.splice(index, 1);
+    return users.splice(index, 1)[0];
   }
 };
 
-addUser({
-  id: 22,
-  username: "hamid  ",
-  room: "  South california",
-});
+const getUser = (id) => {
+  return users.find((user) => user.id === id);
+};
 
-addUser({
-  id: 2,
-  username: "Andrew  ",
-  room: "  South Philly",
-});
+const getUsersInRoom = (room) => {
+  room = room.trim().toLowerCase();
+  return users.filter((user) => user.room === room);
+};
 
-addUser({
-  id: 5,
-  username: "souad  ",
-  room: "  South virginia",
-});
-
-console.log(users);
-
-const remove = removeUser(2);
-
-console.log(remove);
-console.log(users);
+module.exports = {
+  addUser,
+  removeUser,
+  getUser,
+  getUsersInRoom,
+};
