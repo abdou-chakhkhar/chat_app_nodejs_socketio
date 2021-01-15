@@ -1,6 +1,6 @@
 const path = require("path");
-const express = require("express");
 const http = require("http");
+const express = require("express");
 const socketio = require("socket.io");
 const Filter = require("bad-words");
 const {
@@ -35,7 +35,7 @@ io.on("connection", (socket) => {
 
     socket.join(user.room);
 
-    socket.emit("message", generateMessage("Admin", "welcome"));
+    socket.emit("message", generateMessage("Admin", "Welcome!"));
     socket.broadcast
       .to(user.room)
       .emit(
@@ -91,5 +91,5 @@ io.on("connection", (socket) => {
 });
 
 server.listen(port, () => {
-  console.log(`Server is up on port ${port}`);
+  console.log(`Server is up on port ${port}!`);
 });
